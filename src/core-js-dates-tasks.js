@@ -248,16 +248,14 @@ function getQuarter(date) {
  * { start: '01-01-2024', end: '10-01-2024' }, 1, 1 => ['01-01-2024', '03-01-2024', '05-01-2024', '07-01-2024', '09-01-2024']
  */
 
-function parseDate(dateString) {
-  const [day, month, year] = dateString.split('-').map(Number);
-  return new Date(year, month - 1, day);
-}
-
-function formatNewDate(date) {
-  return date.toLocaleDateString().split('.').join('-');
-}
-
 function getWorkSchedule(period, countWorkDays, countOffDays) {
+  function parseDate(dateString) {
+    const [day, month, year] = dateString.split('-').map(Number);
+    return new Date(year, month - 1, day);
+  }
+  function formatNewDate(date) {
+    return date.toLocaleDateString().split('.').join('-');
+  }
   const startDate = parseDate(period.start);
   const endDate = parseDate(period.end);
   const currentDate = startDate;
