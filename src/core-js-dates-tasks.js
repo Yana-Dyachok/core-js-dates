@@ -258,20 +258,17 @@ function getWorkSchedule(period, countWorkDays, countOffDays) {
   }
   const startDate = parseDate(period.start);
   const endDate = parseDate(period.end);
-  const currentDate = startDate;
   const schedule = [];
-
-  while (currentDate <= endDate) {
+  while (startDate.getTime() <= endDate.getTime()) {
     for (let i = 0; i < countWorkDays; i += 1) {
-      if (currentDate > endDate) break;
-      schedule.push(formatNewDate(currentDate));
-      currentDate.setDate(currentDate.getDate() + 1);
+      if (startDate.getTime() > endDate.getTime()) {
+        return schedule;
+      }
+      schedule.push(formatNewDate(startDate));
+      startDate.setDate(startDate.getDate() + 1);
     }
-    for (let i = 0; i < countOffDays; i += 1) {
-      currentDate.setDate(currentDate.getDate() + 1);
-    }
+    startDate.setDate(startDate.getDate() + countOffDays);
   }
-
   return schedule;
 }
 
